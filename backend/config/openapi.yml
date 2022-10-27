@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: Task Manager API
+  description: Backend API for Task Manager
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: ruan.pablo.pec@hotmail.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: /api/v1
+ 
+tags:
+  - name: card
+    description: Card APIs
+ 
+paths:
+  /create:
+    post:
+      description: Card object that needs to be added to the database
+      tags: 
+        - card
+      operationId: createCard
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+      responses:
+        201:
+          description: Success
+          content: 
+            application/json:
+              schema: 
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    type: boolean
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/FailResponse'
+          
+ 
+components:
+  schemas:
+    FailResponse:
+      type: object
+      required:
+        - success
+        - error
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
